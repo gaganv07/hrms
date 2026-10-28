@@ -1,0 +1,15 @@
+{% extends "hrms/base.html" %}
+{% block title %}Delete employee · PeopleDesk{% endblock %}
+{% block heading %}Delete employee{% endblock %}
+{% block content %}
+<section class="panel delete-panel">
+  <div class="eyebrow">CONFIRM ACTION</div>
+  <h2>Delete {{ employee.first_name }} {{ employee.last_name }}?</h2>
+  <p>This will permanently remove this employee record from the directory.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="button danger-button" type="submit">Delete employee</button>
+    <a class="button" href="{% url 'employee_list' %}">Cancel</a>
+  </form>
+</section>
+{% endblock %}
