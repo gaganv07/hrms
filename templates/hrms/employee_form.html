@@ -1,0 +1,27 @@
+{% extends "hrms/base.html" %}
+{% block title %}{{ page_title }} · PeopleDesk{% endblock %}
+{% block heading %}{{ page_title }}{% endblock %}
+{% block content %}
+<section class="list-intro">
+  <div><h2>Employee details</h2><p>Complete the fields below and save the record.</p></div>
+  <a class="button" href="{% url 'employee_list' %}">Back to employees</a>
+</section>
+<section class="panel form-panel">
+  <form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}
+      <label class="form-field">
+        <span>{{ field.label }}</span>
+        {{ field }}
+        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+        {% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+      </label>
+    {% endfor %}
+    <div class="form-actions">
+      <button class="button primary-button" type="submit">Save employee</button>
+      <a class="button" href="{% url 'employee_list' %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
