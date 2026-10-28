@@ -1,23 +1,27 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
-# Virtual environment
+# Virtual environments
 .venv/
 venv/
 ENV/
 env/
 
-# IDE & Editor files
+# Local environment secrets
+.env
+.env.*
+!.env.example
+
+# Local databases and generated static files
+db.sqlite3
+staticfiles/
+
+# IDE and OS files
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS generated files
 .DS_Store
 Thumbs.db
