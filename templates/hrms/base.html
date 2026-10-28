@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PeopleDesk HRMS{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">P</span><span>PeopleDesk<small>HUMAN RESOURCES</small></span></div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link {% if request.path == '/' %}selected{% endif %}" href="/">▦ <span>Dashboard</span></a>
+    <a class="nav-link {% if '/employees/' in request.path %}selected{% endif %}" href="/employees/">♙ <span>Employees</span></a>
+    <a class="nav-link" href="/admin/">⚙ <span>Admin panel</span></a>
+    <div class="sidebar-bottom"><div class="avatar">HR</div><div><b>HR Administrator</b><small>People Operations</small></div></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><span class="eyebrow">PEOPLEDESK / WORKSPACE</span><h1>{% block heading %}Dashboard{% endblock %}</h1></div><div class="top-right"><span class="today">India · IST</span><div class="avatar">HR</div></div></header>
+    {% block content %}{% endblock %}
+    <footer>PeopleDesk HRMS <span>·</span> Internal people operations workspace</footer>
+  </main>
+</body>
+</html>

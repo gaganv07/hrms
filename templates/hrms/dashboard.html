@@ -1,0 +1,28 @@
+{% extends "hrms/base.html" %}
+{% block title %}Dashboard · PeopleDesk{% endblock %}
+{% block heading %}People overview{% endblock %}
+{% block content %}
+<section class="welcome"><div><div class="eyebrow light">YOUR PEOPLE, AT A GLANCE</div><h2>Build a better workplace.</h2><p>Manage your team, departments, and employee records in one place.</p></div><a class="button white-button" href="/employees/">View employees ↗</a></section>
+<section class="stats">
+  <article class="stat-card"><div class="stat-top"><span>Total employees</span><span class="stat-icon blue">♙</span></div><div class="stat-number">{{ employee_count }}</div><div class="stat-note">Across all departments</div></article>
+  <article class="stat-card"><div class="stat-top"><span>Departments</span><span class="stat-icon purple">▦</span></div><div class="stat-number">{{ department_count }}</div><div class="stat-note">Core business functions</div></article>
+  <article class="stat-card"><div class="stat-top"><span>Active employees</span><span class="stat-icon green">✓</span></div><div class="stat-number">{{ active_count }}</div><div class="stat-note">Currently active</div></article>
+  <article class="stat-card"><div class="stat-top"><span>On leave</span><span class="stat-icon orange">◷</span></div><div class="stat-number">{{ on_leave_count }}</div><div class="stat-note">Currently marked on leave</div></article>
+</section>
+<section class="content-grid">
+  <article class="panel departments-panel"><div class="panel-heading"><div><h3>Departments</h3><p>Core teams across the organisation</p></div><span class="pill">{{ department_count }} teams</span></div>
+    <div class="department-list">
+    {% for department in departments %}
+      <div class="department-row"><div class="dept-icon dept-{{ forloop.counter }}">▦</div><div class="dept-info"><b>{{ department.name }}</b><small>{{ department.description|default:"Department team" }}</small></div><span class="dept-count">{{ department.employees.count }} people</span></div>
+    {% empty %}
+      <div class="empty-state">No departments added yet. Open the Admin panel and add Engineering, Finance, HR &amp; Talent Operations.</div>
+    {% endfor %}
+    </div>
+  </article>
+  <article class="panel recent-panel"><div class="panel-heading"><div><h3>Recently joined</h3><p>Latest employee records</p></div><a class="text-link" href="/employees/">View all →</a></div>
+    {% for employee in recent_employees %}
+    <div class="person-row"><div class="person-avatar">{{ employee.first_name|first|upper }}{{ employee.last_name|first|upper }}</div><div class="person-info"><b>{{ employee.first_name }} {{ employee.last_name }}</b><small>{{ employee.job_title }}</small></div><span class="status status-{{ employee.status|lower }}">{{ employee.get_status_display }}</span></div>
+    {% empty %}<div class="empty-state">Your employee list will appear here after you add records in Admin.</div>{% endfor %}
+  </article>
+</section>
+{% endblock %}

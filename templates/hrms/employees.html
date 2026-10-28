@@ -1,0 +1,11 @@
+{% extends "hrms/base.html" %}
+{% block title %}Employees · PeopleDesk{% endblock %}
+{% block heading %}Employees{% endblock %}
+{% block content %}
+<section class="list-intro"><div><h2>Your people directory</h2><p>Search employee records across departments.</p></div><a class="button primary-button" href="/admin/hrms/employee/add/">＋ Add employee</a></section>
+<form class="search-form" method="get"><span>⌕</span><input type="search" name="q" value="{{ query }}" placeholder="Search name, ID, email or department…"><button class="button primary-button" type="submit">Search</button></form>
+<section class="panel table-panel"><div class="panel-heading"><div><h3>Employee directory</h3><p>{{ employees|length }} record(s) shown</p></div></div><div class="table-scroll"><table><thead><tr><th>EMPLOYEE</th><th>EMPLOYEE ID</th><th>DEPARTMENT</th><th>JOB TITLE</th><th>STATUS</th></tr></thead><tbody>
+{% for employee in employees %}<tr><td><div class="table-person"><div class="person-avatar">{{ employee.first_name|first|upper }}{{ employee.last_name|first|upper }}</div><div><b>{{ employee.first_name }} {{ employee.last_name }}</b><small>{{ employee.email }}</small></div></div></td><td>{{ employee.employee_id }}</td><td>{{ employee.department.name }}</td><td>{{ employee.job_title }}</td><td><span class="status status-{{ employee.status|lower }}">{{ employee.get_status_display }}</span></td></tr>
+{% empty %}<tr><td colspan="5" class="empty-state">No employees found. Add employee records using the Admin panel.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}
